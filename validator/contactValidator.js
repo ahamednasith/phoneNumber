@@ -8,7 +8,7 @@ const schema =Joi.object({
 });
 
 const validate = (req,res,next) =>{
-    const phoneNumber = req.body.phone;
+    const phoneNumber = req.body.phoneNumber;
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
     const loginDate  = new Date();
