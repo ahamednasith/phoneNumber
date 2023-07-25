@@ -7,4 +7,6 @@ router.post('/contact',contactController.addAccess);
 
 router.get('/access',contactJwt.verifyToken,contactController.getContact);
 
+router.get('/',contactJwt.verifyToken,contactController.getAllContact);
+
 module.exports = router;
