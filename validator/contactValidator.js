@@ -7,4 +7,16 @@ const schema =Joi.object({
     loginDate:Joi.date().iso()
 });
 
-module.exports = schema;
+const validate = (req,res,next) =>{
+    const phoneNumber = req.body.phone;
+    const user_Id = Math.floor(10000000 + Math.random() * 90000000);
+    const signUpDate = new Date();
+    const loginDate  = new Date();
+    const {error} = schema.validate({phoneNumber,user_Id,signUpDate,loginDate});
+    if(error){
+        return res.status(402).json({error:error.message});
+    }
+    next();
+}
+
+module.exports ={validate};
