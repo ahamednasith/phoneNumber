@@ -29,7 +29,6 @@ const addAccess = async(req,res) => {
 
 }
 const getContact = async(req,res) =>{
-    //const phone = req.body.phoneNumber;
     const contact = await Contact.findOne();
     const user_Id = contact.user_Id;
     const phoneNumber = decrypt(contact.phoneNumber);
