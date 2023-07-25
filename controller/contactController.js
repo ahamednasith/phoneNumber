@@ -1,7 +1,7 @@
 const db = require ('../models');
 const { Sequelize, Op } = require('sequelize');
 const schema = require('../validator/contactValidator');
-const {encrypt,decrypt} = require('../cryption/contactCrypt');
+const {encrypt,decrypt} = require('../JWT/contactCryption');
 const config = require('../config/authConfig');
 const jwt = require('jsonwebtoken');
 const Contact = db.contact;
@@ -33,6 +33,7 @@ const addAccess = async(req,res) => {
     }
 }
 const getContact = async(req,res) =>{
+    //const phone = req.body.phoneNumber;
     const contact = await Contact.findOne();
     const user_Id = contact.user_Id;
     const phoneNumber = decrypt(contact.phoneNumber);
