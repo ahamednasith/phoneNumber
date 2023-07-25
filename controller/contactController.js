@@ -10,9 +10,11 @@ const addAccess = async(req,res) => {
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
     const loginDate  = new Date();
-    const exists = await Contact.findOne({where:{user_Id}});
+    const exists = await Contact.findOne({
+        where:{phoneNumber:phoneNumber}
+        });
     if(exists){
-        const newContact = await Contact.update({loginDate},{where:{user_Id}});
+        const newContact = await Contact.update({loginDate},{where:{phoneNumber}});
     } else {
         const contact = await Contact.create({
             user_Id,
