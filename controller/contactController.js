@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const Contact = db.contact;
 
 const addAccess = async(req,res) => {
-    const phoneNumber = req.body.phone;
+    const phoneNumber = encrypt(String(req.body.phoneNumber));
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
     const loginDate  = new Date();
@@ -16,7 +16,7 @@ const addAccess = async(req,res) => {
     } else {
         const contact = await Contact.create({
             user_Id,
-            phoneNumber:encrypt(String(phoneNumber)),
+            phoneNumber,
             signUpDate,
             loginDate
         });
@@ -26,7 +26,6 @@ const addAccess = async(req,res) => {
             accesstoken:token
         });
     }
-
 }
 const getContact = async(req,res) =>{
     const contact = await Contact.findOne();
