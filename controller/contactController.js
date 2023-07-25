@@ -15,6 +15,7 @@ const addAccess = async(req,res) => {
         });
     if(exists){
         const newContact = await Contact.update({loginDate},{where:{phoneNumber}});
+        return res.status(200).json({message:"PhoneNumber exists And loginDate Updated"});
     } else {
         const contact = await Contact.create({
             user_Id,
