@@ -51,4 +51,5 @@ const getAllContact = async(req,res) =>{
     return res.status(200).json(decryptedContacts);
 }
 
+
 module.exports = {addAccess,getContact,getAllContact};
