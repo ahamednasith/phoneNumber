@@ -19,8 +19,7 @@ const addAccess = async(req,res) => {
         const updatedContact = await Contact.findOne({
             where: { phoneNumber: phoneNumber }
         });
-
-        var token = jwt.sign({ id: updatedContact.id }, config.secret);
+        var token = jwt.sign({ id: updatedContact.id}, config.secret,{expiresIn:300});
         return res.status(200).json({message:"PhoneNumber exists And loginDate Updated",accesstoken:token});
     } else {
         const contact = await Contact.create({
@@ -29,7 +28,7 @@ const addAccess = async(req,res) => {
             signUpDate,
             loginDate
         });
-        var token = jwt.sign({id:contact.id},config.secret);
+        var token = jwt.sign({id:contact.id},config.secret,{expiresIn:300});
         res.status(200).send({
             message:"Contact Successfully Added",
             accesstoken:token
