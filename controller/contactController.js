@@ -46,17 +46,5 @@ const getContact = async(req,res) =>{
     })
 }
 
-const getAllContact = async(req,res) =>{
-    const contact = await Contact.findAll();
-    const decryptedContacts = contact .map(contact => {
-        return {
-            id: contact.id,
-            user_Id: contact.user_Id,
-            phoneNumber: decrypt(contact.phoneNumber)
-        };
-    });
-    return res.status(200).json(decryptedContacts);
-}
 
-
-module.exports = {addAccess,getContact,getAllContact};
+module.exports = {addAccess,getContact};

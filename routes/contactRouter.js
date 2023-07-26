@@ -8,6 +8,6 @@ router.post('/contact',schema.validate,contactController.addAccess);
 
 router.get('/access',contactJwt.verifyToken,contactController.getContact);
 
-router.get('/',contactJwt.verifyToken,contactController.getAllContact);
+
 
 module.exports = router;
