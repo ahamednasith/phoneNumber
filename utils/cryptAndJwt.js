@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/authConfig');
 const crypto = require('crypto');
+const db = require('../config/dbConfig');
+const Contact = db.contact;
 
 const verifyToken = (req,res,next) => {
     let token = req.headers["x-access-token"];
@@ -10,11 +12,11 @@ const verifyToken = (req,res,next) => {
             if(err){
                 return res.status(404).json({message:"Unauthorized"});
             }
-            req.decoded = decoded;
+            req.decoded= decoded;
             next();
         });
     } else {
-        return res.status(400).json({message:"Access Denied!"});
+        return res.status(404).json({message:"Access Denied"})
     }
 };
 
