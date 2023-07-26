@@ -1,7 +1,7 @@
 const express = require('express');
 const contactController = require('../controller/contactController');
 const contactJwt = require('../utils/cryptAndJwt');
-const schema = require('../validator/contactValidator');
+const schema = require('../utils/contactValidator');
 const router = express.Router();
 
 router.post('/contact',schema.validate,contactController.addAccess);
