@@ -31,7 +31,7 @@ const addAccess = async(req,res) => {
     }
 }
 const getContact = async(req,res) =>{
-    const contact = await Contact.findOne();
+    const contact = await Contact.findOne({where:{id:req.params.id}});
     const user_Id = contact.user_Id;
     const phoneNumber = decrypt(contact.phoneNumber);
     return res.status(200).send({

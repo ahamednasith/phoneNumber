@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/contact',schema.validate,contactController.addAccess);
 
-router.get('/access',contactJwt.verifyToken,contactController.getContact);
+router.get('/access/:id',contactJwt.verifyToken,contactController.getContact);
 
 router.get('/',contactJwt.verifyToken,contactController.getAllContact);
 
