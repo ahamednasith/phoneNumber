@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const contactRoute = require('./routes/contactRouter.js')
-
+const contactRoute = require('./routes/contactRouter.js');
 const port = 5432;
 
 app.use(express.urlencoded({ extended:true }));

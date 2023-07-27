@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config/authConfig');
 const crypto = require('crypto');
 const db = require('../config/dbConfig');
 const Contact = db.contact;
-
+const date = `${new Date()}`;
 const verifyToken = (req,res,next) => {
     let token = req.headers["x-access-token"];
+    console.log(token)
     if(token){
         token = token.slice(7);
-        jwt.verify(token,config.secret,(err,decoded) => {
+        jwt.verify(token,date,(err,decoded) => {
             if(err){
                 return res.status(404).json({message:"Unauthorized"});
             }
@@ -37,4 +37,4 @@ function decrypt(value){
     return decrypted;
 }
 
-module.exports = {verifyToken,encrypt,decrypt};
+module.exports = {verifyToken,encrypt,decrypt,date};

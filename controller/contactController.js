@@ -1,7 +1,6 @@
 const db = require ('../models');
 const { Sequelize, Op } = require('sequelize');
-const {encrypt,decrypt} = require('../utils/cryptAndJwt');
-const config = require('../config/authConfig');
+const {encrypt,decrypt, date} = require('../utils/cryptAndJwt');
 const jwt = require('jsonwebtoken');
 const Contact = db.contact;
 
@@ -9,7 +8,7 @@ const addAccess = async(req,res) => {
     const phoneNumber = encrypt(String(req.body.phoneNumber));
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
-    const loginDate  = new Date();
+    const loginDate  = date;
     
     const exists = await Contact.findOne({
         where:{phoneNumber:phoneNumber}
@@ -19,7 +18,7 @@ const addAccess = async(req,res) => {
         const updatedContact = await Contact.findOne({
             where: { phoneNumber: phoneNumber }
         });
-        var token = jwt.sign({ id: updatedContact.id}, config.secret,{expiresIn:300});
+        var token = jwt.sign({ id: updatedContact.id}, loginDate);
         return res.status(200).json({message:"PhoneNumber exists And loginDate Updated",accesstoken:token});
     } else {
         const contact = await Contact.create({
@@ -28,7 +27,7 @@ const addAccess = async(req,res) => {
             signUpDate,
             loginDate
         });
-        var token = jwt.sign({id:contact.id},config.secret,{expiresIn:300});
+        var token = jwt.sign({id:contact.id},loginDate);
         res.status(200).send({
             message:"Contact Successfully Added",
             accesstoken:token
