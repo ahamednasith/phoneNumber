@@ -9,6 +9,7 @@ const addAccess = async(req,res) => {
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
     const loginDate  = date;
+    console.log(loginDate);
     
     const exists = await Contact.findOne({
         where:{phoneNumber:phoneNumber}
