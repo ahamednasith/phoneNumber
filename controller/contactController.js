@@ -1,5 +1,6 @@
 const db = require ('../models');
 const { Sequelize, Op } = require('sequelize');
+const dateTime = require('date-and-time');
 const {encrypt,decrypt, date} = require('../utils/cryptAndJwt');
 const jwt = require('jsonwebtoken');
 const Contact = db.contact;
@@ -8,7 +9,7 @@ const addAccess = async(req,res) => {
     const phoneNumber = encrypt(String(req.body.phoneNumber));
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
-    const loginDate  = date;
+    const loginDate  = dateTime.format(new Date(),'YYYY-MM-DD HH:mm:ss');
     console.log(loginDate);
     
     const exists = await Contact.findOne({
