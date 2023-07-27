@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const db = require('../config/dbConfig');
 const Contact = db.contact;
-const date = new Date().toLocaleDateString();
+const date = new Date().toISOString();
 const verifyToken = (req,res,next) => {
     let token = req.headers["x-access-token"];
     console.log(token)
