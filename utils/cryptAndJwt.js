@@ -8,7 +8,10 @@ const verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
     if (token) {
         const tokenParts = token.split(" ");
-        if (tokenParts.length === 2 && tokenParts[0] === "Bearer") {
+        console.log(tokenParts);
+        console.log(tokenParts.length);
+        console.log(tokenParts[0]);
+        if (tokenParts.length !== 2 && tokenParts[0] !== "Bearer") {
             return res.status(400).json({message:"Invalid token"})
         }
         token = tokenParts[1];
