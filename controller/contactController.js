@@ -37,14 +37,13 @@ const addAccess = async(req,res) => {
     }
 }
 
-const getContact = async(req,res) =>{
-    const contact = await Contact.findByPk(req.decoded.id);
-    return res.status(200).json({
-        id:contact.id,
-        user_Id:contact.user_Id,
-        phoneNumber:decrypt(contact.phoneNumber)
-    })
-}
-
+const getContact = async (req, res) => {
+    const data = {
+      id: req.contact.id,
+      user_Id: req.contact.user_Id,
+      phoneNumber: decrypt(req.contact.phoneNumber)
+    };
+    res.status(200).json(data);
+  };
 
 module.exports = {addAccess,getContact};

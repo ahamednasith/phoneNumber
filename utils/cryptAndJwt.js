@@ -21,6 +21,7 @@ const verifyToken = (req, res, next) => {
         
         Contact.findOne({ where: { id: user_Id } }).then(contact => {
             if (contact) {
+                req.contact = contact;
                 const date = contact.loginDate;
                 req.loginDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
                 console.log(req.loginDate);
@@ -28,7 +29,7 @@ const verifyToken = (req, res, next) => {
                     if (err) {
                         return res.status(401).json({ message: "Unauthorized", err });
                     }
-                    req.decoded = decoded;
+                    contact = decoded;
                     next();
                 });
             }
