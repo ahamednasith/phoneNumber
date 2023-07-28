@@ -9,7 +9,7 @@ const addAccess = async(req,res) => {
     const phoneNumber = encrypt(String(req.body.phoneNumber));
     const user_Id = Math.floor(10000000 + Math.random() * 90000000);
     const signUpDate = new Date();
-    const loginDate  = dateTime.format(new Date(),'YYYY-MM-DD HH:mm:ss');
+    const loginDate  =  dateTime.format(new Date(),'YYYY-MM-DD HH:mm:ss')
     console.log(loginDate);
     
     const exists = await Contact.findOne({
@@ -38,7 +38,7 @@ const addAccess = async(req,res) => {
 }
 
 const getContact = async(req,res) =>{
-    const contact = await Contact.findByPk(req.decoded.id);
+    const contact = await Contact.findByPk({id:user_Id});
     return res.status(200).json({
         id:contact.id,
         user_Id:contact.user_Id,
