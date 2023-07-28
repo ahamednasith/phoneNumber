@@ -5,6 +5,7 @@ const sequelize = new Sequelize(dbConfig.DB,dbConfig.USER,dbConfig.PASSWORD,{
     host:dbConfig.HOST,
     dialect:dbConfig.dialect,
     port:8889,
+    timezone:'+05:30'
 });
 
 const db = {};
