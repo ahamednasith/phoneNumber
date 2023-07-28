@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const dateTime = require('date-and-time');
+const moment = require('moment');
 const db = require('../models/index');
-const { log } = require('console');
-const { decode } = require('punycode');
 const Contact = db.contact;
 
 const verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
     if (token) {
-        token = token.slice(7);
+        const tokenParts = token.split(" ");
+        if (tokenParts.length === 2 && tokenParts[0] === "Bearer") {
+            return res.status(400).json({message:"Invalid token"})
+        }
+        token = tokenParts[1];
         const decodedToken = jwt.decode(token);
         const user_Id = decodedToken.id;
         console.log(user_Id);
@@ -17,7 +19,7 @@ const verifyToken = (req, res, next) => {
         Contact.findOne({ where: { id: user_Id } }).then(contact => {
             if (contact) {
                 const date = contact.loginDate;
-                req.loginDate = date.toISOString().replace("T", " ").slice(0, 19);
+                req.loginDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
                 console.log(req.loginDate);
                 jwt.verify(token, req.loginDate, (err, decoded) => {
                     if (err) {

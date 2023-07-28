@@ -38,7 +38,7 @@ const addAccess = async(req,res) => {
 }
 
 const getContact = async(req,res) =>{
-    const contact = await Contact.findByPk({id:user_Id});
+    const contact = await Contact.findByPk(req.decoded.id);
     return res.status(200).json({
         id:contact.id,
         user_Id:contact.user_Id,
